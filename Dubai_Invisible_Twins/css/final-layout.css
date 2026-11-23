@@ -1,0 +1,19 @@
+
+/* Member 1: preserve V5 camera transitions; improve feedback and storytelling. */
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+.chapter-badge{position:fixed;left:20px;bottom:24px;z-index:40;background:rgba(250,253,248,.94);border:1px solid rgba(34,121,128,.25);border-radius:50px;padding:11px 16px;color:#1a5961;font-size:11px;font-weight:800;letter-spacing:.11em;box-shadow:0 6px 24px rgba(18,55,64,.12);pointer-events:none;transition:opacity .3s,transform .3s}
+.scene .story-panel{transition:transform .8s cubic-bezier(.22,1,.36,1),opacity .8s ease;transform:translateY(36px) scale(.985);opacity:.5}
+.scene.active .story-panel{transform:translateY(0) scale(1);opacity:1}
+.nav-cta,.action,.guess-choice button,.metric-tabs button,.tour-actions button{transition:transform .22s ease,background .22s ease,box-shadow .22s ease}
+.nav-cta:hover,.action:hover,.guess-choice button:hover,.metric-tabs button:hover,.tour-actions button:hover{transform:translateY(-2px)}
+.chart-hint{border-radius:10px 10px 0 0}
+.tour-helper{max-height:calc(100vh - 130px);overflow:auto}
+#changeConfirm:not(:empty){background:#e7f5ef;border-radius:8px;padding:8px 12px}
+@media(max-width:700px){.chapter-badge{left:12px;bottom:12px;font-size:9px;padding:9px 12px}.tour-helper{bottom:60px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scene .story-panel{transition:none;transform:none;opacity:1}}
+
+/* Guess interaction: separate selection feedback from the fixed observed result. */
+#guessAnswer .guess-feedback, #guessAnswer .guess-result { display:block; }
+#guessAnswer .guess-feedback { margin-bottom: .75rem; }
+#guessAnswer .guess-result { font-weight: 400; }
+#guessAnswer .guess-prices { display:block; margin-top: .35rem; }

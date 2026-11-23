@@ -1,0 +1,634 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1e9">
+
+  <title>Dubai's Invisible Twins | Interactive Data Story</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/interface-refinements.css">
+  <link rel="stylesheet" href="css/final-layout.css">
+<link rel="stylesheet" href="css/interaction-enhancements.css">
+<link rel="stylesheet" href="css/budget-atlas.css">
+<link rel="stylesheet" href="css/guest-ratings.css">
+<link rel="stylesheet" href="css/twin-dna.css">
+
+  <!-- Main libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js" defer></script>
+  <script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js" defer></script>
+
+  <!-- Project JavaScript -->
+  <script src="js/app.js" defer></script>
+  <script src="js/twin-dna-and-budget.js" defer></script>
+  <script src="js/interface-refinements.js" defer></script>
+  <script src="js/story-navigation.js" defer></script>
+  <script src="js/twin-constellation.js" defer></script>
+  <script src="js/every-sale.js" defer></script>
+<script src="js/interaction-enhancements.js" defer></script>
+<script src="js/guest-ratings.js" defer></script>
+<script src="js/twin-dna-insights.js" defer></script>
+
+</head>
+
+<body>
+  <div id="progress"></div><div id="chapterBadge" class="chapter-badge" aria-live="polite">01 · ENTER DUBAI</div>
+
+  <!-- User guidance -->
+  <div class="tour-helper is-intro" id="tourHelper" role="dialog" aria-labelledby="tourCount" aria-live="polite">
+    <div class="tour-top">
+      <span id="tourCount">YOUR GUIDE · 1/6</span>
+      <button id="tourClose" aria-label="Hide guide">×</button>
+    </div>
+    <p id="tourText">
+      Scroll to enter Dubai. The camera will guide you through the story.
+    </p>
+    <div class="tour-actions">
+      <button id="tourBack" type="button">← BACK</button>
+      <button id="tourNext" type="button">SHOW ME →</button>
+    </div>
+  </div>
+
+  <button class="tour-reopen" id="tourReopen" type="button" hidden>
+    HOW TO EXPLORE ?
+  </button>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <a href="#top" class="brand">
+      ◇ &nbsp; INVISIBLE TWINS <span>/ DUBAI</span>
+    </a>
+    <span class="nav-note">CS333 · INTERACTIVE DATA STORY</span>
+    <a href="#find" class="nav-cta">EXPLORE THE DATA ↗</a>
+  </header>
+
+  <nav class="rail" aria-label="Chapter links">
+    <a href="#top" title="Introduction">01</a>
+    <a href="#guess" title="Guess">02</a>
+    <a href="#find" title="Find">03</a>
+    <a href="#evidence" title="Evidence">04</a>
+    <a href="#dna" title="DNA">05</a>
+    <a href="#budget" title="Budget">06</a>
+    <a href="#guest" title="Guest ratings">07</a>
+    <a href="#end" title="Conclusion">08</a>
+  </nav>
+
+  <main>
+
+    <!-- INTRODUCTION -->
+    <section id="top" class="intro">
+      <div class="map-sticky">
+        <div id="map" aria-label="Perspective map of Dubai"></div>
+        <div class="map-overlay"></div>
+        <div class="map-caption" id="mapCaption">
+          DUBAI / FOLLOW THE STORY ↓
+        </div>
+        <div class="map-disclaimer">
+          MAP BUILDING EXTRUSIONS DEPEND ON AVAILABLE OPEN MAP DATA
+        </div>
+      </div>
+
+      <div class="scroll-track">
+
+        <article class="scene first" data-scene="0">
+          <div class="story-panel transparent">
+            <p class="kicker">AN INTERACTIVE INVESTIGATION / 2023—2025</p>
+            <h1>
+              Dubai's<br>
+              <em>Invisible</em><br>
+              Twins
+            </h1>
+            <p class="hero-line">
+              Similar apartments.<br>
+              <b>Different prices.</b>
+            </p>
+            <p>
+              Two communities can sell comparable one-bedroom flats at
+              very different prices. But how much of the story can the
+              transactions really tell us?
+            </p>
+            <a class="action" href="#guess">
+              BEGIN THE INVESTIGATION ↓
+            </a>
+          </div>
+        </article>
+
+        <article class="scene" data-scene="1">
+          <div class="story-panel">
+            <p class="kicker">01 / THE RULES</p>
+            <h2>
+              Before comparing prices,
+              <em>compare the homes.</em>
+            </h2>
+            <p>
+              We isolate recorded sales of existing residential one-bedroom
+              flats measuring 55–100 m², from 2023 to 2025.
+            </p>
+            <div class="hero-stat">
+              2,072 <span>validated transactions</span>
+            </div>
+            <button class="text-button" data-info="rules">
+              WHY THESE FILTERS? ↗
+            </button>
+          </div>
+        </article>
+
+        <article class="scene" data-scene="2">
+          <div class="story-panel">
+            <p class="kicker">02 / ENTER THE FIRST MARKET</p>
+            <h2>
+              A community is more than a <em>price tag.</em>
+            </h2>
+            <p>
+              Our first example takes us to Marsa Dubai. The map
+              establishes location; the transaction data establishes prices.
+            </p>
+            <p class="scene-number" id="mapPriceA">—</p>
+          </div>
+        </article>
+
+        <article class="scene" data-scene="3">
+          <div class="story-panel">
+            <p class="kicker">03 / CROSS THE CITY</p>
+            <h2>
+              Similar floor area. <em>Another market.</em>
+            </h2>
+            <p>
+              Now compare Al Barsha South Fourth. These are candidate matches
+              by selected apartment characteristics, not identical buildings.
+            </p>
+            <p class="scene-number" id="mapPriceB">—</p>
+          </div>
+        </article>
+
+        <article class="scene" data-scene="4">
+          <div class="story-panel">
+            <p class="kicker">04 / THE QUESTION</p>
+            <h2>
+              Is the difference <em>as large as you expect?</em>
+            </h2>
+            <p>
+              Make a prediction before exploring the data. Then choose
+              your own communities to challenge the example.
+            </p>
+            <a class="action" href="#guess">MAKE YOUR GUESS ↓</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- GUESS THE GAP -->
+    <section id="guess" class="chapter guess-chapter">
+      <div class="chapter-shell">
+        <p class="kicker">THE HOOK / GUESS THE GAP</p>
+        <h2>How different <em>could they be?</em></h2>
+        <p class="lead">
+          In 2025, how much higher was the median price per m²
+          in Marsa Dubai than in Al Barsha South Fourth?
+        </p>
+
+        <div class="guess-box">
+          <div class="guess-head">
+            <span>Marsa Dubai</span>
+            <span>Al Barsha South Fourth</span>
+          </div>
+
+          <div class="guess-choice" id="guessChoices">
+            <button type="button" aria-pressed="false" data-guess="10">10%</button>
+            <button type="button" aria-pressed="false" data-guess="25">25%</button>
+            <button type="button" aria-pressed="false" data-guess="50">50%</button>
+            <button type="button" aria-pressed="false" data-guess="100">100%</button>
+          </div>
+
+          <p id="guessAnswer" aria-live="polite">
+            Choose your prediction to reveal the recorded difference.
+          </p>
+        </div>
+
+        <p class="under">
+          A price gap is a finding, not proof of what caused it.
+          Our next task is to find valid comparisons without selecting
+          for a large price difference.
+        </p>
+      </div>
+    </section>
+
+    <!-- COMMUNITY SELECTION -->
+    <section class="control-zone" id="investigate">
+      <div class="chapter-shell">
+        <p class="kicker">YOU ARE THE INVESTIGATOR</p>
+        <h2>
+          Choose your communities.
+          <em>Follow the evidence.</em>
+        </h2>
+        <p class="lead">
+          Select a year, choose any eligible starting community and select
+          one of its available size-matched partners.
+          All five D3 views update together.
+        </p>
+
+        <div class="micro-instruction" aria-label="Quick selection guide">
+          <strong>START HERE — CLICK A STEP</strong>
+          <button type="button" data-focus="year">① Choose a year</button>
+          <button type="button" data-focus="community">② Choose your community</button>
+          <button type="button" data-focus="partner">③ Pick a comparison</button>
+        </div>
+
+        <div class="controls" id="comparisonControls">
+          <label>
+            TRANSACTION YEAR
+            <select id="year">
+              <option>2023</option>
+              <option>2024</option>
+              <option selected>2025</option>
+            </select>
+          </label>
+
+          <label>
+            YOUR COMMUNITY
+            <select id="community"></select>
+          </label>
+
+          <label>
+            COMPARABLE COMMUNITY
+            <select id="partner"></select>
+          </label>
+
+          <button id="reset">↺ RESET</button>
+        </div>
+
+        <div class="change-confirm" id="changeConfirm"
+             role="status" aria-live="polite"></div>
+
+        <div class="selected-strip">
+          <div>
+            <p class="kicker">CURRENT COMPARISON</p>
+            <h3 id="pairTitle">Loading data…</h3>
+            <p id="pairDescription">Loading eligible communities…</p>
+          </div>
+
+          <div class="strip-stats">
+            <div>
+              <b id="gapStat">—</b>
+              <small>median price gap</small>
+            </div>
+            <div>
+              <b id="sizeStat">—</b>
+              <small>median area difference</small>
+            </div>
+            <div>
+              <b id="sampleStat">—</b>
+              <small>recorded sales A / B</small>
+            </div>
+          </div>
+        </div>
+
+        <button class="text-button" data-info="match">
+          HOW ARE CANDIDATE MATCHES CHOSEN? ↗
+        </button>
+      </div>
+    </section>
+
+    <!-- VIEW 1: TWIN CONSTELLATION -->
+    <section id="find" class="chapter chart-chapter">
+      <div class="chapter-shell">
+<div class="quick-compare"><div><strong>CHANGE YOUR COMPARISON</strong><small>Update the year or either community without leaving this view</small></div><label>YEAR<select data-sync="year" aria-label="Change transaction year"></select></label><label>COMMUNITY A<select data-sync="community" aria-label="Change starting community"></select></label><label>COMMUNITY B<select data-sync="partner" aria-label="Change comparison community"></select></label><button type="button" data-jump="investigate">FULL SELECTION ↗</button></div>
+        <div class="chapter-top">
+          <div>
+            <p class="kicker">D3 VIEW 01 / TWIN CONSTELLATION</p>
+            <h2>Find the <em>unexpected neighbors.</em></h2>
+            <p>
+              Each dot is a community. Horizontal position is median
+              apartment size; vertical position is median price per m².
+              Size-matched candidates appear as connected highlights.
+              Click a dot to change your comparison.
+            </p>
+          </div>
+          <button class="info" data-info="constellation">
+            HOW TO READ ↗
+          </button>
+        </div>
+
+        <details class="reading-card" open><summary>◉ HOW TO READ THE CONSTELLATION <span>CLICK TO HIDE / SHOW</span></summary><p>Each circle is one community. Left to right means smaller to larger typical flat area. Bottom to top means lower to higher median AED per m². Larger circles have more recorded sales. Bright connected circles are valid size matches. Click one to compare.</p></details>
+<div class="viz-grid">
+          <div class="viz-frame">
+            <div class="viz-header">
+              <span>APARTMENT SIZE × PRICE</span>
+              <span id="matchCount">—</span>
+            </div>
+
+            <p class="chart-hint">
+              INTERACT → Hover over a dot for its details.
+              Click a highlighted candidate to compare it.
+            </p>
+
+            <div id="constellation" class="d3-area"></div>
+            <div id="gapInset" class="insight-panel" aria-live="polite"></div>
+          </div>
+
+          <aside class="visual-side">
+            <div class="building-panel" id="building-find"></div>
+            <div class="side-text" id="side-find"></div>
+            <p class="small-note">
+              Illustrative apartment blocks. Height encodes the selected
+              metric, not actual building height.
+            </p>
+          </aside>
+        </div>
+
+        <div class="transition-line">
+          SCROLL TO SEE WHAT THE INDIVIDUAL TRANSACTIONS REVEAL
+          <span>↓</span>
+        </div>
+      <div class="chapter-advance"><button type="button" data-jump="investigate">↺ TRY ANOTHER PAIR</button><button type="button" data-jump="evidence">NEXT CHAPTER →</button></div>
+</div>
+    </section>
+
+    <!-- VIEW 2: EVERY SALE -->
+    <section id="evidence" class="chapter chart-chapter evidence-chapter">
+      <div class="chapter-shell">
+<div class="quick-compare"><div><strong>CHANGE YOUR COMPARISON</strong><small>Update the year or either community without leaving this view</small></div><label>YEAR<select data-sync="year" aria-label="Change transaction year"></select></label><label>COMMUNITY A<select data-sync="community" aria-label="Change starting community"></select></label><label>COMMUNITY B<select data-sync="partner" aria-label="Change comparison community"></select></label><button type="button" data-jump="investigate">FULL SELECTION ↗</button></div>
+        <div class="chapter-top">
+          <div>
+            <p class="kicker">D3 VIEW 02 / EVERY SALE</p>
+            <h2>One median hides <em>hundreds of stories.</em></h2>
+            <p>
+              Every dot represents one filtered transaction.
+              Watch the dots arrange by price per square metre.
+              Compare the spread, overlap and median—not only
+              the difference between two headline numbers.
+            </p>
+          </div>
+
+          <button class="info" data-info="sales">
+            HOW TO READ ↗
+          </button>
+        </div>
+
+        <details class="reading-card" open><summary>◉ HOW TO READ EVERY SALE <span>CLICK TO HIDE / SHOW</span></summary><p>Each dot is one recorded sale. The horizontal position shows its AED per m². Dots farther right cost more per m². The two groups are the selected communities. Compare their median markers and how much their dots overlap.</p></details>
+<div class="viz-grid">
+          <div class="viz-frame">
+            <div class="viz-header">
+              <span>ONE DOT = ONE RECORDED SALE</span>
+              <span>HOVER TO INSPECT</span>
+            </div>
+
+            <p class="chart-hint">
+              INTERACT → Hover over an individual transaction
+              to see its recorded value.
+            </p>
+
+            <div id="salesChart" class="d3-area"></div>
+            <div id="saleInterval" class="insight-panel" aria-live="polite"></div>
+          </div>
+
+          <aside class="visual-side">
+            <div class="building-panel" id="building-evidence"></div>
+            <div class="side-text" id="side-evidence"></div>
+            <p class="small-note">
+              Transactions represent sampled sales,
+              not the complete Dubai property market.
+            </p>
+          </aside>
+        </div>
+
+        <div class="transition-line">
+          NOW EXAMINE WHAT ELSE IS DIFFERENT
+          <span>↓</span>
+        </div>
+      <div class="chapter-advance"><button type="button" data-jump="investigate">↺ TRY ANOTHER PAIR</button><button type="button" data-jump="dna">NEXT CHAPTER →</button></div>
+</div>
+    </section>
+
+    <!-- VIEW 3: TWIN DNA — MEMBER 4 -->
+    <section id="dna" class="chapter chart-chapter dna-chapter">
+      <div class="chapter-shell">
+<div class="quick-compare"><div><strong>CHANGE YOUR COMPARISON</strong><small>Update the year or either community without leaving this view</small></div><label>YEAR<select data-sync="year" aria-label="Change transaction year"></select></label><label>COMMUNITY A<select data-sync="community" aria-label="Change starting community"></select></label><label>COMMUNITY B<select data-sync="partner" aria-label="Change comparison community"></select></label><button type="button" data-jump="investigate">FULL SELECTION ↗</button></div>
+        <div class="chapter-top">
+          <div>
+            <p class="kicker">D3 VIEW 03 / TWIN DNA</p>
+            <h2>Beyond price. <em>What else differs?</em></h2>
+            <p>
+              The ladder compares your two communities on five verified residential sale measures: median price per square metre, median flat area, median sale value, price spread and eligible sales. Each row ranks
+              every eligible community from lowest to highest, so different units
+              can sit side by side. Below, switch metrics to compare the exact values.
+            </p>
+          </div>
+
+          <button class="info" data-info="dna">
+            WHAT DO THESE MEAN? ↗
+          </button>
+        </div>
+
+        <div class="ladder-frame">
+          <div class="viz-header"><span>TWIN DNA LADDER · RANK AMONG ELIGIBLE COMMUNITIES</span><span id="ladderCount">—</span></div>
+          <p class="chart-hint">INTERACT → Hover a row for the real values. Click a row to compare that measure in detail below.</p>
+          <div id="dnaLadder" class="ladder-area"></div>
+          <p class="chart-hint" id="dnaSourceDates">SOURCE: All five ladder measures are calculated from the filtered 2023–2025 residential transaction dataset for the selected year. No metro, venue or population dataset is used.</p>
+          <p id="ladderInsight" class="chart-insight"></p>
+        </div>
+
+        <div class="tabs" role="group" aria-label="Select metric">
+          <button data-metric="area" class="active">FLOOR AREA</button>
+          <button data-metric="worth">SALE VALUE</button>
+          <button data-metric="iqr">PRICE SPREAD</button>
+          <button data-metric="n">SALES COUNT</button>
+        </div>
+
+        <details class="reading-card" open><summary>◉ HOW TO READ TWIN DNA <span>CLICK TO HIDE / SHOW</span></summary><p>Choose one metric above the chart. Each colored mark represents a community. Farther right means a larger value on the displayed scale. The units change with the metric, so compare the two communities within one metric only.</p></details>
+<div class="viz-grid">
+          <div class="viz-frame">
+            <div class="viz-header">
+              <span id="metricLabel">MEDIAN FLOOR AREA</span>
+              <span>SELECT A METRIC ABOVE</span>
+            </div>
+
+            <p class="chart-hint">
+              INTERACT → Select a metric.
+              Both apartment illustrations will adjust smoothly.
+            </p>
+
+            <div id="dnaChart" class="d3-area"></div>
+            <p id="dnaInsight" class="chart-insight"></p>
+          </div>
+
+          <aside class="visual-side">
+            <div class="building-panel" id="building-dna"></div>
+            <div class="side-text" id="side-dna"></div>
+            <p class="small-note">
+              All five ladder measures come from validated residential transactions. Comparisons describe associations, not causes.</p>
+          </aside>
+        </div>
+
+        <div class="transition-line">
+          WHAT DOES THE DIFFERENCE MEAN FOR A BUDGET?
+          <span>↓</span>
+        </div>
+      <div class="chapter-advance"><button type="button" data-jump="investigate">↺ TRY ANOTHER PAIR</button><button type="button" data-jump="budget">NEXT CHAPTER →</button></div>
+</div>
+    </section>
+
+    <!-- VIEW 4: BUDGET EXPLORER — MEMBER 4 -->
+    <section id="budget" class="chapter chart-chapter budget-chapter">
+      <div class="chapter-shell">
+<div class="quick-compare"><div><strong>MAIN STORY COMPARISON</strong><small>Changes here update all linked views. The budget explorer below has independent community selectors.</small></div><label>YEAR<select data-sync="year" aria-label="Change transaction year"></select></label><label>COMMUNITY A<select data-sync="community" aria-label="Change starting community"></select></label><label>COMMUNITY B<select data-sync="partner" aria-label="Change comparison community"></select></label><button type="button" data-jump="investigate">FULL SELECTION ↗</button></div>
+        <div class="chapter-top">
+          <div>
+            <p class="kicker">
+              D3 VIEW 04 / SAME BUDGET, DIFFERENT HOME
+            </p>
+            <h2>
+              One budget. <em>Two theoretical outcomes.</em>
+            </h2>
+            <p>
+              Choose a budget. We divide it by each community's
+              observed median price per m² to estimate equivalent
+              floor area. This is an illustration, not an actual
+              property listing or affordability guarantee.
+            </p>
+          </div>
+
+          <button class="info" data-info="budget">
+            HOW IS THIS CALCULATED? ↗
+          </button>
+        </div>
+
+        <div class="budget-control">
+          <label for="budgetRange">
+            YOUR THEORETICAL BUDGET
+          </label>
+
+          <strong id="budgetAmount">AED 1,500,000</strong>
+
+          <input
+            type="range"
+            id="budgetRange"
+            min="500000"
+            max="4000000"
+            step="50000"
+            value="1500000"
+          >
+
+          <div class="range-ends">
+            <span>AED 500,000</span>
+            <span>AED 4,000,000</span>
+          </div>
+        </div>
+
+        <details class="reading-card" open><summary>◉ HOW TO READ THE BUDGET EXPLORER <span>CLICK TO HIDE / SHOW</span></summary><p>Both communities use the same budget. Longer bars indicate more theoretical square metres at the community median price per m². Browse other communities below using historical sales within your budget. This does not show current listings.</p></details>
+<div class="budget-market" id="budgetMarket"><div class="budget-market-heading"><div><p class="kicker">INDEPENDENT BUDGET EXPLORER</p><h3>Explore other communities within your budget</h3><p>All eligible communities with at least one historical recorded sale at or below your budget, in the selected year. This is not a live property search.</p></div><span id="budgetMarketCount">—</span></div><div class="budget-market-controls"><label>COMMUNITY A<select id="budgetCommunityA" aria-label="Budget comparison community A"></select></label><label>COMMUNITY B<select id="budgetCommunityB" aria-label="Budget comparison community B"></select></label><button type="button" id="budgetUsePair">USE MAIN COMPARISON</button></div><div id="budgetCommunityList" class="budget-community-list" aria-live="polite"></div><div class="budget-landscape-wrap"><h4>Budget atlas · choose any community to compare</h4><p>Every card is a community with at least one recorded sale within your selected budget and year. The bar shows relative transaction count. Select a card to compare it with Community A. All qualifying communities appear automatically.</p><div id="budgetLandscape" class="budget-landscape" role="img" aria-label="Interactive ranked cards showing all communities with historical sales within the budget"></div></div></div>
+<div class="viz-grid">
+          <div class="viz-frame">
+            <div class="viz-header">
+              <span>EQUIVALENT FLOOR AREA AT MEDIAN AED/m²</span>
+              <span>m²</span>
+            </div>
+
+            <p class="chart-hint">
+              INTERACT → Drag the budget slider
+              and watch both models respond.
+            </p>
+
+            <div id="budgetChart" class="d3-area"></div>
+            <p id="budgetInsight" class="chart-insight"></p>
+          </div>
+
+          <aside class="visual-side">
+            <div class="building-panel" id="building-budget"></div>
+            <div class="side-text" id="side-budget"></div>
+            <p class="small-note">
+              Illustrations and theoretical area do not represent
+              an actual apartment or guarantee availability at this price.
+            </p>
+          </aside>
+        </div>
+      <div class="chapter-advance"><button type="button" data-jump="investigate">↺ TRY ANOTHER PAIR</button><button type="button" data-jump="guest">NEXT: GUEST RATINGS →</button></div>
+</div>
+    </section>
+
+
+    <!-- VERIFIED GUEST EXPERIENCE / FIFTH D3 VIEW -->
+    <section id="guest" class="chapter chart-chapter guest-chapter">
+      <div class="chapter-shell">
+        <p class="kicker">05 / AN INDEPENDENT LENS</p>
+        <h2>Does a higher price mean <em>better guest ratings?</em></h2>
+        <p class="section-lead">Explore guest ratings from a separate short-term rental dataset, matched geographically to Dubai communities. These are not ratings of the apartments sold. These are <strong>guest reviews, not homeowner satisfaction</strong>. Each listing contributes one rating per year, using its latest observed monthly snapshot.</p>
+        <div class="guest-tools"><label>YEAR <select data-sync="year" aria-label="Guest chart year"></select></label><label>COMMUNITY A <select data-sync="community" aria-label="Guest chart starting community"></select></label><label>COMMUNITY B <select data-sync="partner" aria-label="Guest chart comparison community"></select></label><button type="button" data-jump="investigate">CHANGE PAIR</button></div>
+        <details class="reading-card" open><summary>HOW TO READ THE GUEST-RATING CHART <span>CLICK TO HIDE / SHOW</span></summary><p><strong>Each circle = one community.</strong> Left to right: higher median recorded sale price per square metre. Bottom to top: higher mean guest star rating (out of 5). Larger circles represent more uniquely rated rental listings. Teal and coral outlines identify your chosen communities. Hover for counts and ratings. Click a circle to choose a comparison when the pair is eligible under the sale-matching rules. Only communities with at least five uniquely rated listings are plotted, to reduce the influence of very small samples.</p></details>
+        <div class="guest-layout"><div><div id="guestChart" class="guest-chart" role="img" aria-label="Interactive scatterplot of Dubai community sale prices and rental guest ratings"></div><div id="guestLegend" class="guest-legend">Circle size = number of rated listings · Hover to inspect</div></div><aside class="guest-aside"><p class="kicker">YOUR SELECTED COMMUNITIES</p><div id="guestPair" aria-live="polite"></div><p id="guestInsight" class="chart-insight"></p><p id="guestFinding" class="chart-insight guest-finding"></p><button type="button" data-jump="end">SEE CONCLUSION →</button></aside></div>
+        <div class="guest-caution"><strong>Interpretation:</strong> These ratings come from a separate short-term rental dataset. They do not rate the exact apartments in the sales records. A high guest rating does not establish that a community is better to live in, nor explain its sale price.</div>
+      </div>
+    </section>
+
+    <!-- CONCLUSION -->
+    <section id="end" class="ending">
+      <div class="chapter-shell">
+        <p class="kicker">THE FINDING / YOUR INVESTIGATION</p>
+
+        <h2>
+          Comparable on paper.<br>
+          <em>Not identical in the market.</em>
+        </h2>
+
+        <p id="cityFinding" class="city-finding"></p>
+
+        <p id="finalSummary">
+          Choose a community pair to create your own conclusion.
+        </p>
+
+        <p>
+          Our filters make comparisons more consistent. They cannot
+          control for building quality, views, exact location,
+          amenities or the causes of price differences.
+          The data supports a comparison—not a causal explanation.
+        </p>
+
+        <div class="end-actions">
+          <a href="#investigate">TRY ANOTHER COMPARISON ↑</a>
+          <button data-info="sources">
+            SOURCES & LIMITS — READ MORE ↗
+          </button>
+        </div>
+
+        <div class="data-trust"><h3>What the data cannot tell us</h3><p>These are historical recorded sales, not current listings. We include short-term rental guest ratings from a separate Kaggle dataset, but these do not measure homeowner satisfaction. The comparison controls for selected flat characteristics but not building quality, views or amenities. We do not infer building quality or why prices differ.</p><div class="source-inventory"><h3>Data sources and tools</h3><p><strong>Transactions:</strong> CS333 course Dubai property transaction dataset, filtered to eligible 2023–2025 one-bedroom sales. <a href="https://github.com/sharios/CS333" target="_blank" rel="noopener noreferrer">Course dataset repository ↗</a></p><p><strong>Geography:</strong> supplied Dubai community GeoJSON boundaries, used for community geography and spatial matching. Exact original publication URL should be confirmed.</p><p><strong>Guest ratings:</strong> separate Kaggle short-term rental monthly listings dataset (listings_monthly.csv). Guest reviews are not homeowner ratings. <strong>Source citation pending:</strong> original Kaggle page, author and license must be added by the team.</p><p><strong>Tools:</strong> <a href="https://d3js.org/" target="_blank" rel="noopener noreferrer">D3.js v7 ↗</a> for charts; <a href="https://maplibre.org/maplibre-gl-js/docs/" target="_blank" rel="noopener noreferrer">MapLibre GL JS ↗</a> for the interactive map; Python for data preparation; HTML, CSS and JavaScript for the website.</p></div></div><div class="deep-links">
+          <p>DIRECT LINKS TO EACH D3 VISUALIZATION</p>
+          <a href="#find">Twin Constellation</a>
+          <a href="#evidence">Every Sale</a>
+          <a href="#dna">Twin DNA</a>
+          <a href="#budget">Same Budget, Different Home</a>
+          <a href="#guest">Guest Ratings vs Sale Price</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TOOLTIPS -->
+  <div id="tooltip" class="tooltip" hidden></div>
+
+  <!-- METHODOLOGY MODAL -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card" role="dialog"
+         aria-modal="true" aria-labelledby="modalTitle">
+      <button id="closeModal" class="close-modal"
+              aria-label="Close dialog">×</button>
+
+      <p class="kicker">FIELD NOTES / METHODS</p>
+      <h2 id="modalTitle"></h2>
+      <div id="modalBody"></div>
+
+      <button id="doneModal" class="action">
+        RETURN TO STORY ↗
+      </button>
+    </div>
+  </div>
+
+  <div id="error" class="error" hidden></div>
+</body>
+</html>

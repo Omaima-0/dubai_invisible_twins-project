@@ -1,0 +1,14 @@
+/* V7 budget atlas: readable cards rather than overlapping SVG dots */
+.budget-landscape{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;max-height:560px;overflow:auto;padding:8px 4px 12px;align-items:stretch}
+.budget-atlas-card{display:flex!important;flex-direction:column;justify-content:space-between;gap:13px;min-width:0;min-height:124px;text-align:left!important;background:#f5faf8!important;border:1px solid #bfd7d2!important;border-radius:16px!important;padding:16px!important;transition:transform .2s,box-shadow .2s,border-color .2s!important}
+.budget-atlas-card:hover,.budget-atlas-card:focus-visible{transform:translateY(-3px);box-shadow:0 10px 24px #124d551e;outline:2px solid #168995;outline-offset:2px}
+.budget-atlas-card.selected-a{background:#d9f3f0!important;border:2px solid #008e99!important}
+.budget-atlas-card.selected-b{background:#fff0e9!important;border:2px solid #e8795b!important}
+.atlas-top,.atlas-bottom{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.atlas-name{font-size:14px;font-weight:850;line-height:1.4;color:#163d48;overflow-wrap:anywhere}
+.atlas-count{font-size:11px;color:#386c71;white-space:nowrap}
+.atlas-meter{display:block;width:100%;height:7px;border-radius:8px;background:#dbe8e4;overflow:hidden}
+.atlas-meter-fill{display:block;height:100%;background:linear-gradient(90deg,#0b9d9e,#e7aa69);border-radius:8px;transition:width .4s}
+.atlas-price,.atlas-area{font-size:11px;line-height:1.5;color:#2d5a62}
+.budget-community-list:empty{display:none}
+@media(max-width:650px){.budget-landscape{grid-template-columns:1fr;max-height:480px}.budget-market{padding:14px}}

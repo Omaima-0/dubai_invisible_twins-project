@@ -1,0 +1,31 @@
+/* twin-insights.css — styles for the final-version additions (gap inset, interval, DNA ladder, guest finding) */
+.insight-panel{border-top:1px solid #dce6e3;padding:16px 22px 10px;background:#fbfdfa}
+.insight-panel svg{display:block;overflow:visible}
+.ti-kicker{margin:0 0 4px;font-size:10px;font-weight:800;letter-spacing:.11em;color:#5a7279}
+.ti-text{margin:0 0 8px;font-size:14px;line-height:1.55;color:#28434c}
+.ti-muted{color:#6b8085;font-weight:500}
+.ti-small{font-size:10.5px;font-weight:700;letter-spacing:.06em;fill:#5a7477}
+.ti-strong{font-weight:800;font-size:12px;letter-spacing:0}
+.ti-bar{transition:fill .3s}
+.ladder-frame{border:1px solid #d3dfdc;border-radius:18px;background:#fffefaed;box-shadow:0 15px 70px #28515d0e;overflow:hidden;margin:0 0 26px}
+.ladder-area{padding:8px 14px 4px}
+.ladder-area svg{display:block;overflow:visible}
+.ld-row{cursor:pointer}
+.ld-hit{fill:transparent;transition:fill .2s}
+.ld-row:hover .ld-hit{fill:#eef6f3}
+.ld-row.is-picked .ld-hit{fill:#e3f3f0}
+.ld-label{font-size:13px;font-weight:700;fill:#163443}
+.ld-axis{stroke:#d5e1de;stroke-width:1}
+.ld-ticks line{stroke:#9fb3b3;stroke-width:1.4}
+.ld-link{stroke:#163443;stroke-width:2;opacity:.35}
+.ld-a,.ld-b{stroke:#fff;stroke-width:2}
+.ld-val{font-size:12.5px;font-weight:700}
+.guest-finding{margin-top:6px;padding:14px 16px!important;background:#f1f7f5;border-radius:12px;font-weight:500!important;line-height:1.55}
+.city-finding{font-size:clamp(18px,2vw,22px);line-height:1.5;max-width:760px}
+.ending .city-finding b{color:#8fe3dc}
+.rail a.is-current{background:#163443;color:#fff}
+/* docked tour card: compact so it never covers a chart */
+.tour-helper:not(.is-intro){width:min(320px,calc(100vw - 40px));padding:14px 16px;bottom:22px;right:20px}
+.tour-helper:not(.is-intro) #tourText{font-size:13.5px;line-height:1.5;margin:8px 0 10px}
+@media (max-width:700px){.tour-helper:not(.is-intro){width:calc(100vw - 24px);right:12px;bottom:12px}.tour-helper:not(.is-intro) #tourText{font-size:13px}}
+#saleInterval,#gapInset{margin-top:14px}
